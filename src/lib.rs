@@ -188,7 +188,4 @@ impl SimpleMemeMuseum {
             None => false,
         }
     }
-
-
-
 }
