@@ -1,7 +1,7 @@
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::UnorderedMap;
 use near_sdk::serde::{Deserialize, Serialize};
-use near_sdk::{near_bindgen, setup_alloc};
+use near_sdk::{env, near_bindgen, setup_alloc};
 
 setup_alloc!();
 
@@ -28,7 +28,8 @@ pub struct Meme {
 
 impl Default for Meme {
     fn default() -> Self {
-        Meme { id: 0, 
+        Meme { 
+            id: 0, 
             creado_por: String::from(""), 
             titulo: String::from(""), 
             museo: String::from(""), 
@@ -42,10 +43,10 @@ impl Default for Meme {
 impl Meme {
     pub fn new(titulo: String, url: String , museo: String) -> Self {
         Self { 
-            id: 0, 
-            creado_por: String::from(""), 
+            id: env::block_index(), 
+            creado_por: env::signer_account_id(), 
             titulo, 
-            museo, 
+            museo,
             url, 
             donaciones: 0, 
         }
